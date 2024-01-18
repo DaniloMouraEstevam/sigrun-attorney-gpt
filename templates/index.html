@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'head' %}
+    <style>
+        .img-back {background-image: url("{% static 'base/img/assinatura-bg.jpg' %}");}
+    </style>
+{% endblock 'head' %}
+
+{% block 'titulo' %}Attorney GPT{% endblock 'titulo' %}
+
+{% block 'conteudo' %}
+    <div class="container-fluid img-back mask">
+        <div class="container-90 row d-flex align-items-center h-100">
+            <div class="col-8">
+                <div class="container d-flex justify-content-center pb-5 mb-5 mt-n3">
+                    <img src="{% static 'base/img/attorney-gpt-text.png' %}" alt="" width="535" height="130">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="container d-flex justify-content-end">
+                    <a href="{% url 'usuario:login'%}" class="btn btn-light text-capitalize fw-bold">Fazer Login</a>
+                    <a href="{% url 'usuario:cadastro'%}" class="btn btn-light text-capitalize fw-bold ms-2">Criar Conta</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock 'conteudo' %}

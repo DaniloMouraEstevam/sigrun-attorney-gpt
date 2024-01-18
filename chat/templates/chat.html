@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'head' %}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .navigation {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            height: 100%;
+            background-color: #424242;
+            width: 300px;
+            box-shadow: 10px 0 0 #099c22;
+            border-left: 10px solid #424242;
+            overflow-x: hidden;
+            transition: 0.5s;
+        }
+
+        .navigation.show-menu {
+            left: 0;
+        }
+
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #666;
+        }
+
+        .profile-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .profile-info {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .navigation ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .navigation ul li {
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+        }
+
+        .navigation ul li a {
+            display: block;
+            padding: 15px;
+            text-decoration: none;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        .navigation ul li a:hover {
+            background-color: #099c22;
+        }
+
+        .toggle-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #099c22;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+{% endblock 'head' %}
+
+{% block 'titulo' %}
+
+{% endblock 'titulo' %}
+
+{% block 'conteudo' %}
+
+<!-- Botão com três pontos -->
+<button class="toggle-button">&#8226;&#8226;&#8226;</button>
+
+<div class="navigation">
+    <div class="profile-container" id="profile-container">
+        
+        <div class="profile-info" id="profile-info">
+            <p>Seja bem-vindo(a),</p>
+            <!-- <p>{{ cliente.username }}</p> -->
+        </div>
+    </div>
+    <ul>
+        <li class="list active">
+            <a href="">
+                <span class="title">Chat</span>
+            </a>
+        </li>
+
+        <li class="list">
+            <a href="">
+                <span class="title">Usuario</span>
+            </a>
+        </li>
+
+        <li class="list">
+            <a href="">
+                <span class="title">Configurações</span>
+            </a>
+        </li>
+
+        <li class="list">
+            <a href="">
+                <span class="title">Ajuda</span>
+            </a>
+        </li>
+
+        <li class="list">
+            <a href="">
+                <span class="title">Sair</span>
+            </a>
+        </li>
+    </ul>
+
+</div>
+
+<script>
+    const list = document.querySelectorAll('.list');
+    const toggleButton = document.querySelector('.toggle-button');
+    const navigation = document.querySelector('.navigation');
+    const profileContainer = document.getElementById('profile-container');
+
+    function activelink() {
+        list.forEach((item) => item.classList.remove('active'));
+        this.classList.add('active');
+        closeMenu();
+    }
+
+    function closeMenu() {
+        navigation.classList.remove('show-menu');
+    }
+
+    list.forEach((item) => item.addEventListener('click', activelink));
+
+    toggleButton.addEventListener('click', () => {
+        navigation.classList.toggle('show-menu');
+    });
+
+    navigation.addEventListener('click', closeMenu);
+
+    document.getElementById('profile-image').src = "{% if cliente_logado.profile.foto_perfil %}{{ cliente_logado.profile.foto_perfil.url }}{% else %}{% static 'path/para/placeholder.jpg' %}{% endif %}";
+    document.getElementById('profile-info').innerHTML = `<p>Seja bem-vindo(a),</p><p>${cliente_logado.username}</p>`;
+</script>
+
+{% endblock 'conteudo' %}

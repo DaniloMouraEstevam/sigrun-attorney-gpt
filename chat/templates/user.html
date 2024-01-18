@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'head' %}
+    <style>
+        /* Adicione estilos personalizados conforme necessário */
+        /* Este é um exemplo básico */
+        /* Certifique-se de incluir estilos para formatação, layout e responsividade */
+
+        .profile-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin-top: 50px;
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .edit-form {
+            max-width: 400px;
+            width: 100%;
+            margin: 20px;
+        }
+
+        .edit-form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .edit-form input,
+        .edit-form button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        .edit-form button {
+            background-color: #099c22;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+{% endblock 'head' %}
+
+{% block 'titulo' %}
+    <title>Editar Perfil</title>
+{% endblock 'titulo' %}
+
+{% block 'conteudo' %}
+    <div class="profile-container">
+        <!-- Imagem do perfil (será preenchida dinamicamente) -->
+        <img src="{% if user.profile.foto_perfil %}{{ user.profile.foto_perfil.url }}{% else %}{% static 'path/para/placeholder.jpg' %}{% endif %}" alt="Profile Image" class="profile-image">
+
+        <!-- Formulário de edição -->
+        <form class="edit-form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" value="{{ user.username }}" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="{{ user.email }}" required>
+
+            <label for="senha">Nova Senha:</label>
+            <input type="password" id="senha" name="senha">
+
+            <label for="oab">Número da OAB:</label>
+            <input type="text" id="oab" name="oab" value="{{ user.profile.oab }}" required>
+
+            <label for="foto_perfil">Foto de Perfil:</label>
+            <input type="file" id="foto_perfil" name="foto_perfil" accept="image/*">
+
+            <button type="submit">Salvar Alterações</button>
+        </form>
+    </div>
+{% endblock 'conteudo' %}

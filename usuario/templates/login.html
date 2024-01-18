@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'head' %}
+    <style>
+        body {
+            background-image: url("{% static 'base/img/assinatura-bg.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 40px; 
+            border-radius: 10px;
+            width: 400px; 
+            max-height: 600px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-container button {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .custom-centered-title {
+            margin-bottom: 20px;
+        }
+
+        .options {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .options a {
+            color: #007bff;
+            text-decoration: none;
+            /* display: block; */
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            width: 300px;
+        }
+    </style>
+{% endblock 'head' %}
+
+{% block 'titulo' %}Login{% endblock 'titulo' %}
+
+{% block 'conteudo' %}
+    {% if status_messages %}
+        <div class="toast position-absolute top-0 end-0 mt-3 me-3 {{ status_messages.class }}" role="alert" 
+        aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="5000">
+            <div class="d-flex">
+                <div class="toast-body">
+                    {{ status_messages.message }}
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="container login-container">
+        <h2 class="text-center mb-4 custom-centered-title">Login</h2>
+        <form method="POST" action="{% url 'usuario:valida_login' %}" > {% csrf_token %}
+            <div class="form-group">
+                <input name="email" type="text" class="form-control" placeholder="Digite seu email">
+            </div>
+            <div class="form-group">
+                <input name="senha" type="password" class="form-control" placeholder="Digite sua senha">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block text-capitalize">Entrar</button>
+            <div class="options">
+                <p>Não tem uma conta? <span><a href="{% url 'usuario:cadastro' %}">Cadastre-se</a></span></p>
+                <a href="#">Esqueci minha senha</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+            var toastList = toastElList.map(function(toastEl) {
+                return new bootstrap.Toast(toastEl)
+            })
+            toastList.forEach(toast => toast.show());
+        });
+    </script>
+{% endblock 'conteudo' %}
