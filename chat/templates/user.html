@@ -13,6 +13,12 @@
             align-items: center;
             flex-direction: column;
             margin-top: 50px;
+            background-image: url("{% static 'base/img/assinatura-bg.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            margin: 0;
         }
 
         .profile-image {
@@ -25,7 +31,10 @@
         .edit-form {
             max-width: 400px;
             width: 100%;
-            margin: 20px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .edit-form label {
@@ -56,10 +65,9 @@
 
 {% block 'conteudo' %}
     <div class="profile-container">
-        <!-- Imagem do perfil (será preenchida dinamicamente) -->
+        
         <img src="{% if user.profile.foto_perfil %}{{ user.profile.foto_perfil.url }}{% else %}{% static 'path/para/placeholder.jpg' %}{% endif %}" alt="Profile Image" class="profile-image">
 
-        <!-- Formulário de edição -->
         <form class="edit-form" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <label for="nome">Nome:</label>

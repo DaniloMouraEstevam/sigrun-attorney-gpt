@@ -100,15 +100,13 @@
 
 {% block 'conteudo' %}
 
-<!-- Botão com três pontos -->
 <button class="toggle-button">&#8226;&#8226;&#8226;</button>
 
 <div class="navigation">
     <div class="profile-container" id="profile-container">
         
         <div class="profile-info" id="profile-info">
-            <p>Seja bem-vindo(a),</p>
-            <!-- <p>{{ cliente.username }}</p> -->
+            <p>Seja bem-vindo(a), {{ cliente_logado.username }}</p>
         </div>
     </div>
     <ul>
@@ -119,7 +117,7 @@
         </li>
 
         <li class="list">
-            <a href="">
+            <a href="{% url 'chat:user' %}">
                 <span class="title">Usuario</span>
             </a>
         </li>
