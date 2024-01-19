@@ -58,6 +58,7 @@ def valida_login(request):
         email = request.POST.get('email')
         senha = request.POST.get('senha')
         
+        
         User = get_user_model()
         try:
             user = User.objects.get(email=email)
@@ -66,7 +67,7 @@ def valida_login(request):
 
         try:
             # Use a função authenticate para verificar as credenciais
-            user = authenticate(request, email=user.email, password=senha)
+            user = authenticate(request, username=email, password=senha)
             
             if user is not None:
                 # Usuário autenticado com sucesso
@@ -81,6 +82,7 @@ def valida_login(request):
         except Exception as e:
             status_message = {'class': 'bg-danger text-white', 'message': f'Erro interno: {str(e)}'}
             return render(request, 'login.html', {'status_messages': status_message})
+
 
 
 def sair(request):

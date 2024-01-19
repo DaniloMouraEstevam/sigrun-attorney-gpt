@@ -104,8 +104,7 @@
 
 <div class="navigation">
     <div class="profile-container" id="profile-container">
-        
-        <div class="profile-info" id="profile-info">
+        <img src="{% if user.foto_perfil %}{{ user.foto_perfil.url }}{% else %}{% static 'path/para/placeholder.jpg' %}{% endif %}" alt="Profile Image" class="profile-image">        <div class="profile-info" id="profile-info">
             <p>Seja bem-vindo(a), {{ cliente_logado.username }}</p>
         </div>
     </div>
