@@ -22,7 +22,7 @@ def edit_profile(request):
     user = request.user
 
     if request.method == 'POST':
-        form = EditProfileForm(request.POST, request.FILES, instance=user.profile)
+        form = EditProfileForm(request.POST, request.FILES, instance=user)
 
         if form.is_valid():
             form.save()
@@ -31,6 +31,6 @@ def edit_profile(request):
         else:
             messages.error(request, 'Erro ao atualizar o perfil. Por favor, corrija os erros abaixo.')
     else:
-        form = EditProfileForm(instance=user.profile)
+        form = EditProfileForm(instance=user)
 
     return render(request, 'user.html', {'form': form})

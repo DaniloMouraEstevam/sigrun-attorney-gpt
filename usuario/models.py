@@ -9,3 +9,7 @@ class Cliente(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
+
+class Perfil(models.Model):
+    user = models.OneToOneField('Cliente', on_delete=models.CASCADE)
+    foto_perfil = models.ImageField(upload_to='profile', default='profile/anonymous-user.jpg')
