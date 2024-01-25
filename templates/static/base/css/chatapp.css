@@ -1,0 +1,200 @@
+@charset "UTF-8";
+/*!
+* Chat App
+*/
+/*!
+ * Bootstrap  v5.2.3 (https://getbootstrap.com/)
+ * Copyright 2011-2022 The Bootstrap Authors
+ * Copyright 2011-2022 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ */
+
+/* Sidebar */
+.navbar-toggler-arrow {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: middle;
+  content: "";
+  border: 0.25em solid transparent;
+  border-top: 0.25em solid;
+  margin-right: 0.25em;
+}
+
+#sidebarToggle:focus,
+#sidebarToggle:active {
+  box-shadow: none;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.list-group {
+  width: 100%;
+  height: 85vh;
+  overflow-y: auto;
+}
+
+.list-group a {
+  text-decoration: none;
+  color: black;
+}
+
+.list-group ul {
+  list-style: none;
+  padding: 0.25em 0.75em;
+}
+
+.history {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 0.375rem;
+  padding: 0.25em 0.75em;
+  margin-bottom: 5px;
+  font-size: 0.75rem;
+}
+
+.history a {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  display: inline-block;
+}
+
+.history:hover {
+  background-color: #edf2f4;
+}
+
+.btn-edit,
+.btn-delete {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  visibility: hidden;
+  z-index: 2;
+  font-size: 0.75rem;
+}
+
+.btn-edit {
+  right: 30px;
+}
+
+/* Chat */
+.container-fluid-2 {
+  height: calc(80vh - var(--submit-form-height, 2px));
+  overflow: auto;
+  position: relative;
+  transition: margin-bottom 0.3s;
+}
+
+.chat-container {
+  width: 100%;
+  height: auto;
+  flex: 8;
+}
+
+.mw-75 {
+  max-width: 75%;
+}
+
+.mw-75 p {
+  padding: 0.5em 1.25em;
+}
+
+.user-chat {
+  background-color: #ecf8f8;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+
+.bot-chat {
+  background-color: #eee4e1;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+
+.submit-form {
+  width: 800px;
+  min-height: 60px;
+  max-height: 200px;
+  border: 1px solid gray;
+  border-radius: 10px;
+  margin: 10px auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  overflow: auto;
+  transition: min-height 0.3s, max-height 0.3s, margin-bottom 0.3s;
+  position: absolute;
+  bottom: 0;
+}
+
+.submit-form textarea {
+  flex-grow: 1;
+  width: calc(100% - 30px);
+  height: 40px;
+  resize: none;
+  border: none;
+  overflow-y: auto;
+  margin: 10px 10px;
+  transition: height 0.3s;
+}
+
+.submit-form textarea.form-control:focus {
+  border-color: transparent;
+  box-shadow: none;
+}
+
+/* Scroolbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d0d0d0;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a2a2a2;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+::-webkit-scrollbar-track:hover {
+  background-color: #f1f1f1;
+}
+
+html {
+  scrollbar-width: thin;
+}
+
+html::-moz-scrollbar-thumb {
+  background-color: #d0d0d0;
+  border-radius: 6px;
+}
+
+html::-moz-scrollbar-thumb:hover {
+  background-color: #a2a2a2;
+}
+
+html::-moz-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+html::-moz-scrollbar-track:hover {
+  background-color: #f1f1f1;
+}

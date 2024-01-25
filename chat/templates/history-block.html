@@ -1,0 +1,16 @@
+{% if hist_context %}
+    <div class="history-block" id = {{ id }}>
+        <div class="mt-2"><small class="fw-bold fs-7 ms-3">{{ text }}</small></div>
+        <ul>
+            {% for tq in hist_context %}
+                <li>
+                    <div class="history" onmouseover="showButtons(this)" onmouseout="hideButtons(this)">
+                        <a href="#">{{ tq.message }}</a>
+                        <button class="btn-edit"><i class="fa-solid fa-pencil"></i></button>
+                        <button class="btn-delete"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </li>
+            {% endfor %}  
+        </ul>
+    </div>
+{% endif %}

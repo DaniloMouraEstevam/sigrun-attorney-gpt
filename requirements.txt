@@ -4,3 +4,4 @@ pillow
 python-decouple
 python-dotenv
 opencv-python-headless
+openai

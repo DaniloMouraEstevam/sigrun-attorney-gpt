@@ -21,8 +21,6 @@ from django.urls import path, include
 
 from attorney_gpt.views import index
 
-app_name = 'attorney'
-
 urlpatterns = [
     # UI
     path('', index, name='index'),
