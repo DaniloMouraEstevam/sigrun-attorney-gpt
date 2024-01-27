@@ -9,7 +9,6 @@ class HistoryQuestion(models.Model):
     date_only = models.DateField(auto_now_add=True)
     
 
-
 class Conversation(models.Model):
     user = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     chat_message = models.ForeignKey(HistoryQuestion, on_delete=models.CASCADE)

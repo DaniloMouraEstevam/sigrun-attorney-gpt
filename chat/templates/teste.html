@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exemplo de Página</title>
+    <style>
+        .history-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .history {
+            position: relative;
+            border: 1px solid #ddd;
+            border-radius: 0.375rem;
+            padding: 0.25em 0.75em;
+            margin-bottom: 5px;
+            font-size: 0.75rem;
+        }
+
+        .btn-edit, .btn-delete {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="history-container" onmouseover="showButtons(this)" onmouseout="hideButtons(this)">
+        <a href="#" id="view_messages_link">
+            <div class="history">Esta é a mensagem</div>
+        </a>
+        <div>
+            <button class="btn-edit"><i class="fa-solid fa-pencil"></i> Editar</button>
+            <button class="btn-delete"><i class="fa-solid fa-trash"></i> Deletar</button>
+        </div>
+    </div>
+</body>
+</html>

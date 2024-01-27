@@ -1,0 +1,7 @@
+- Frontend
+    caixa de texto: ajustar altura dinâmica
+    mensagens do histórico não renderizam após envio de mensagens (quando há tentativa de resgte)
+
+- Backend
+    ajuste na conversão de fuso horário, sqlite usa UTC, portanto todas as informações são registradas com +3h 
+    (problema ocorre à noite onde as mensagens são registradas como sendo do dia seguinte)
