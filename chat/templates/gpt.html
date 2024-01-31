@@ -2,126 +2,110 @@
 {% load static %}
 
 {% block 'head' %}
-    <style>
-.tooltip-inner {
-  background-color: #0d6efd;
-  color: #fff;
-  
-  font-size: 0.9rem;
-}
-.bs-tooltip-top .tooltip-arrow::before,
-.bs-tooltip-auto[data-popper-placement^=top] .tooltip-arrow::before {
-    border-top-color: #0d6efd;
-}
-.bs-tooltip-end .tooltip-arrow::before,
-.bs-tooltip-auto[data-popper-placement^=right] .tooltip-arrow::before {
-    border-right-color: #0d6efd;
-}
-.bs-tooltip-bottom .tooltip-arrow::before,
-.bs-tooltip-auto[data-popper-placement^=bottom] .tooltip-arrow::before {
-    border-bottom-color: #0d6efd;
-}
-.bs-tooltip-start .tooltip-arrow::before,
-.bs-tooltip-auto[data-popper-placement^=left] .tooltip-arrow::before {
-    border-left-color: #0d6efd;
+<style>
+
+.action-buttons .btn-file:focus {
+  border-color: transparent;
 }
 
 
 
-.file-upload{
-    width: 240px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: end;
-    position: absolute;
-    bottom: 0;
-}
-
-.btn-h:hover {
-  color: #007bff;
-}
-
-    </style>
+</style>
 {% endblock 'head' %}
 
 {% block 'titulo' %}Attorney GPT{% endblock 'titulo' %}
 
 {% block 'conteudo' %}
-    <div class="d-flex" id="wrapper">
-        <!-- Sidebar -->
-        <div class="border-end bg-white" id="sidebar-wrapper">
-            <div class="sidebar-heading border-bottom bg-light d-flex justify-content-center">
-                <button class="btn btn-sm btn-primary text-capitalize" id="newChatBtn">
-                    <i class="fa-regular fa-comments"></i>
-                    <span>&nbsp Novo chat</span>
-                </button>
-            </div>
-            <div class="list-group">
-                {% include 'history-block.html' with hist_context=t_questions id='t-block' text='Hoje' %}
-                {% include 'history-block.html' with hist_context=s_questions id='s-block' text='Últimos 7 dias' %}
-                {% include 'history-block.html' with hist_context=td_questions id='td-block' text='Últimos 30 dias' %}
-            </div>
-            <form action="" class="file-upload">
-                <button class="btn btn-h me-2 mb-2" data-toggle="tooltip" data-placement="top" title="Enviar arquivo"><i class="fa-solid fa-file-arrow-up"></i></button>
-                <button class="btn btn-h me-3 mb-2" data-toggle="tooltip" data-placement="top" title="Enviar imagem"><i class="fa-solid fa-file-image"></i></button>
-            </form>
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div class="border-end bg-white" id="sidebar-wrapper">
+        <div class="sidebar-heading border-bottom bg-light d-flex justify-content-center">
+            <button class="btn btn-sm btn-primary text-capitalize" id="newChatBtn">
+                <i class="fa-regular fa-comments"></i>
+                <span>&nbsp Novo chat</span>
+            </button>
         </div>
-
-        <!-- Page content wrapper-->
-        <div id="page-content-wrapper">
-            <!-- Top navigation -->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-                <div class="container-fluid">
-                    <button class="btn btn-link" id="sidebarToggle" onclick="toggleIcon()" 
-                        data-toggle="tooltip" data-placement="right">
-                        <i class="bi bi-chevron-left" id="toggleIcon"></i>
-                    </button>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-arrow"></span>
-                    </button>
-
-                    <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
-                        <ul class="navbar-nav m-auto mt-2 mt-lg-0">
-                            <li class="nav-item">
-                                <img src="{% static 'base/img/attorney-gpt-text-black.png' %}" alt="" width="164" height="40">
-                            </li>
-                        </ul>
-                        <ul class="navbar-nav mt-2 mt-lg-0">
-                            <li class="nav-item active"><a class="nav-link" href="#">Pergunta</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Chat</a></li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle d-flex align-items-center" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" 
-                                    aria-haspopup="true" aria-expanded="false">
-                                    <img src="{{ user.foto_perfil.url }}" class="rounded-circle" height="25" loading="lazy"/>
-                                    <strong class="d-none d-sm-block ms-1">{{ user.username }}</strong>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#!">Configurações</a>
-                                    <a class="dropdown-item" href="#!">Ajuda</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="{% url 'usuario:sair' %}">Sair</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-
-            <!-- Page content-->
-            <div class="container-fluid container-fluid-2">
-                <div class="chat-container p-3"></div>
-            </div>
-            
-            <!-- Question content -->
-            <form action="" class="d-flex justify-content-center" id="question_form">
-                <div class="submit-form bg-light">
-                    <textarea class="form-control border-0 bg-light ms-2" id="input_value" placeholder="Pergunte-me qualquer coisa..." required></textarea>
-                    <button class="btn btn-h me-2 mb-2" id="submit-btn"><i class="fa-solid fa-gavel"></i></button>
-                </div>
-            </form>
+        <div class="list-group">
+            {% include 'history-block.html' with hist_context=t_questions id='t-block' text='Hoje' %}
+            {% include 'history-block.html' with hist_context=s_questions id='s-block' text='Últimos 7 dias' %}
+            {% include 'history-block.html' with hist_context=td_questions id='td-block' text='Últimos 30 dias' %}
         </div>
     </div>
+
+    <!-- Page content wrapper-->
+    <div id="page-content-wrapper">
+        <!-- Top navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <div class="container-fluid">
+                <button class="btn btn-link" id="sidebarToggle" onclick="toggleIcon()" data-toggle="tooltip"
+                    data-placement="right">
+                    <i class="bi bi-chevron-left" id="toggleIcon"></i>
+                </button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-arrow"></span>
+                </button>
+
+                <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
+                    <ul class="navbar-nav m-auto mt-2 mt-lg-0">
+                        <li class="nav-item">
+                            <img src="{% static 'base/img/attorney-gpt-text-black.png' %}" alt="" width="164"
+                                height="40">
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav mt-2 mt-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center" id="navbarDropdown" href="#"
+                                role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="{{ user.foto_perfil.url }}" class="rounded-circle" height="25"
+                                    loading="lazy" />
+                                <strong class="d-none d-sm-block ms-1">{{ user.username }}</strong>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#!">Configurações</a>
+                                <a class="dropdown-item" href="#!">Ajuda</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'usuario:sair' %}">Sair</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Page content-->
+        <div class="container-fluid container-fluid-2">
+            <div class="chat-container p-3"></div>
+        </div>
+
+        <!-- Question content -->
+        <form action="" class="d-flex justify-content-center" id="question_form" enctype="multipart/form-data">
+            <div class="submit-form bg-light">
+                <textarea class="form-control border-0 bg-light mt-1 mb-1" id="input_value"
+                    placeholder="Pergunte-me qualquer coisa..."></textarea>
+                <input type="file" name="document" class="d-none" id="file_input" accept=".pdf, .doc, .docx">
+                <input type="file" name="image" class="d-none" id="image_input" accept="image/*">
+                <div class="file-preview-up" id="file-preview-container">
+                    <i class="fa-solid fa-paperclip me-2"></i>
+                    <div id="file-preview"></div>
+                    <button class="btn btn-sm ms-2" id="remove-file"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="row action-buttons mt-1 mb-1">
+                    <div class="col-10">
+                        <button type="button" class="btn btn-h btn-sm btn-file" data-toggle="tooltip" data-placement="top"
+                            title="Enviar arquivo" id="btnFile"><i class="fa-solid fa-file-arrow-up"></i></button>
+                        <button type="button" class="btn btn-h btn-sm ms-2 btn-image" data-toggle="tooltip" data-placement="top"
+                            title="Enviar imagem" id="btnImage"><i class="fa-solid fa-file-image"></i></button>
+                    </div>
+                    <div class="col-2 d-flex justify-content-end">
+                        <button class="btn btn-h btn-sm" id="submit-btn"><i class="fa-solid fa-gavel"></i></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock 'conteudo' %}
 
 {% block 'script' %}
@@ -131,230 +115,451 @@
 </script>
 
 <script>
-let form = document.querySelector('#question_form')
-let textarea = document.querySelector('#input_value')
-let chat_container = document.querySelector('.chat-container')
-let isFirstMessage = true;
-let currentChatMessageId = null;
+// Encapsulate code in a function to limit the scope of variables
+(function () {
+    let form = document.querySelector('#question_form');
+    let textarea = document.querySelector('#input_value');
+    let chat_container = document.querySelector('.chat-container');
+    let isFirstMessage = true;
+    let currentChatMessageId = null;
+    let sidebarToggle = document.body.querySelector('#sidebarToggle');
+    let submitBtn = document.getElementById('submit-btn');
+    let fileInput = document.getElementById('file_input');
+    let imageInput = document.getElementById('image_input');
+    let csrftoken;
 
-
-// Ajuste na altura da caixa de perguntas
-document.getElementById('input_value').addEventListener('input', function () {
-    this.style.height = '';
-
-    if (this.scrollHeight <= 150) {
-        this.style.height = this.scrollHeight + 'px';
-        document.documentElement.style.setProperty('--submit-form-height', this.style.height);
-        document.querySelector('.container-fluid-2').style.height = 'calc(80vh - ' + this.style.height + ' + 38px)';
-    } else {
-        this.style.height = '150px';
-        document.documentElement.style.setProperty('--submit-form-height', this.style.height);
-        document.querySelector('.container-fluid-2').style.height = 'calc(80vh - ' + this.style.height + ' + 38px)';
-    }
-
-    if (this.value === '') {
-        this.style.height = '40px';
-        document.documentElement.style.setProperty('--submit-form-height', '60px');
-        document.querySelector('.container-fluid-2').style.height = '80vh';
-    }
-});
-
-
-// Botão para ciar um novo chat
-document.addEventListener('DOMContentLoaded', function () {
-    let newChatBtn = document.getElementById('newChatBtn');
-
-    newChatBtn.addEventListener('click', function (event) {
-        event.preventDefault();
-        location.reload();
+    // Event Listener for DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', function () {
+        initializeTooltips();
+        initializeSidebarToggle();
+        initializeTextarea();
+        initializeFileInputEvents();
+        initializeNewChatButton();
+        initializeCookieFunctions();
+        initializeSubmitButton();
+        initializeMessageLinkEvents();
+        initializeToggleIcon();
     });
-});
+
+    // ok
+    function initializeTooltips() {
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'));
+        tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+            new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    }
+
+    // ok
+    function initializeSidebarToggle() {
+        if (sidebarToggle) {
+            sidebarToggle.addEventListener('click', toggleSidebar);
+        }
+    }
+
+    // ok
+    function toggleSidebar(event) {
+        event.preventDefault();
+        document.body.classList.toggle('sb-sidenav-toggled');
+        localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
+        toggleIcon();
+    }
+
+    // ok
+    function initializeToggleIcon() {
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        sidebarToggle.setAttribute('title', 'Esconder sidebar');
+        $(sidebarToggle).tooltip();
+    }
+
+    // ok
+    function toggleIcon() {
+        const icon = document.getElementById("toggleIcon");
+        const sidebarToggle = document.getElementById('sidebarToggle');
+
+        // Destruir o tooltip existente
+        $(sidebarToggle).tooltip('dispose');
+
+        if (icon.classList.contains("bi-chevron-left")) {
+            icon.classList.replace("bi-chevron-left", "bi-chevron-right");
+            sidebarToggle.setAttribute('title', 'Mostrar sidebar');
+        } else {
+            icon.classList.replace("bi-chevron-right", "bi-chevron-left");
+            sidebarToggle.setAttribute('title', 'Esconder sidebar');
+        }
+        // Inicializar um novo tooltip
+        $(sidebarToggle).tooltip();
+    }
+
+    // ok
+    window.showButtons = function (messageDiv) {
+        const buttons = messageDiv.querySelectorAll('.btn-edit, .btn-delete');
+        buttons.forEach(button => button.classList.add('visible'));
+    }
+
+    // ok
+    window.hideButtons = function (messageDiv) {
+        const buttons = messageDiv.querySelectorAll('.btn-edit, .btn-delete');
+        buttons.forEach(button => button.classList.remove('visible'));
+    }
+
+    // Function to initialize textarea events
+    function initializeTextarea() {
+        function checkTextarea() {
+            submitBtn.disabled = textarea.value.trim() === '';
+        }
+
+        checkTextarea();
+
+        textarea.addEventListener('input', checkTextarea);
+
+        form.addEventListener('submit', function () {
+            submitBtn.disabled = true;
+        });
+
+        textarea.addEventListener('input', adjustContainerHeight);
+    }
+
+    // Function to initialize file input events
+    function initializeFileInputEvents() {
+        const fileInput = document.getElementById('file_input');
+        const imageInput = document.getElementById('image_input');
+        const submitBtn = document.getElementById('submit-btn');
+
+        if (fileInput && imageInput && submitBtn) {
+            ['file', 'image'].forEach(function (type) {
+                const btnInput = document.getElementById(`btn${capitalizeFirstLetter(type)}`);
+
+                if (btnInput) {
+                    btnInput.addEventListener('click', function () {
+                        document.getElementById(`${type}_input`).click();
+                        $(btnInput).tooltip('hide');
+                        btnInput.blur();
+                    });
+                }
+
+                const inputElement = document.getElementById(`${type}_input`);
+                if (inputElement) {
+                    inputElement.addEventListener('change', function () {
+                        updateFilePreview(`${type}_input`, 'file-preview');
+                        document.getElementById('file-preview-container').style.display = 'flex';
+                        adjustContainerHeight();
+                    });
+                }
+            });
+
+            const removeFileBtn = document.getElementById('remove-file');
+
+            if (removeFileBtn) {
+                removeFileBtn.addEventListener('click', function () {
+                    event.preventDefault();
+                    
+                    fileInput.value = '';
+                    imageInput.value = '';
+
+                    document.getElementById('file-preview-container').style.display = 'none';
+                    adjustContainerHeight();
+                    updateFilePreview('', 'file-preview');
+                });
+            }
+
+            submitBtn.addEventListener('click', function () {
+                // fileInput.value = '';
+                // imageInput.value = '';
+                document.getElementById('file-preview-container').style.display = 'none';
+                adjustContainerHeight();
+            });
+        }
+    }
 
 
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
+    // Function to initialize the "New Chat" button
+    function initializeNewChatButton() {
+        let newChatBtn = document.getElementById('newChatBtn');
+        newChatBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+            location.reload();
+        });
+    }
+
+    // Function to initialize cookie functions
+    function initializeCookieFunctions() {
+        csrftoken = getCookie('csrftoken');
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    }
+
+    // Function to initialize submit button
+    function initializeSubmitButton() {
+        form.addEventListener('submit', submitForm);
+    }
+
+    // Function to capitalize the first letter of a string
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    // Function to initialize the history message render
+    function initializeMessageLinkEvents() {
+        document.querySelectorAll('.view_messages_link').forEach(link => {
+            link.addEventListener('click', handleViewMessages);
+        });
+    }
+
+    // Function to handle view message events
+    function handleViewMessages(event) {
+        event.preventDefault();
+
+        // Verifique se o elemento tem a propriedade 'id' antes de chamar o método 'split'
+        const chat_message_id = event.currentTarget.id ? event.currentTarget.id.split('_')[2] : null;
+        
+        if (chat_message_id) {
+            renderMessages(chat_message_id);
+        }
+    }
+
+    // Function to handle submit form
+    async function submitForm(e) {
+        e.preventDefault();
+
+        const message = textarea.value;
+        const formData = new FormData(form);
+        formData.append('msg', message);
+        formData.append('is_first_message', currentChatMessageId ? false : isFirstMessage);
+        formData.append('chat_message_id', currentChatMessageId || undefined);
+        formData.append('document', fileInput.files[0] || null);
+        formData.append('image', imageInput.files[0] || null);
+        
+        try {
+            const { msg, res, files, time, first_id } = await postFormData(formData);
+
+            if (isFirstMessage) {
+                updateHistoryBlock(msg, time, first_id);
+            }
+
+            isFirstMessage = false;
+            currentChatMessageId = null;
+
+            renderMessages(first_id);
+
+            updateFilePreview('', 'file-preview');
+            fileInput.value = '';
+            imageInput.value = '';
+        } catch (error) {
+            console.error("Error:", error);
+            // Trate o erro de maneira adequada (pode ser exibindo uma mensagem de erro ao usuário, por exemplo)
+        }
+    }
+
+    // Function to handle messages from history
+    function renderMessages(chat_message_id) {
+        const url = `/chat/view-messages/${chat_message_id}`;
+
+        try {
+            fetch(url)
+                .then(response => response.json())
+                .then(messages => {
+                    const chatContainer = document.querySelector('.chat-container');
+                    chatContainer.innerHTML = '';
+                    
+                    if (Array.isArray(messages)) {
+                        messages.forEach(({ user_question, bot_response }) => {
+                            const messageRowDivUser = createMessageElement('Você', user_question, null, true);
+                            const messageRowDivBot = createMessageElement('Gwen', bot_response, null, false);
+
+                            chatContainer.appendChild(messageRowDivUser);
+                            chatContainer.appendChild(messageRowDivBot);
+
+                            messageRowDivBot.scrollIntoView();
+                        });
+                    } else {
+                        console.error('A resposta não é um array de mensagens:', messages);
+                    }
+
+                    currentChatMessageId = chat_message_id;
+                })
+                .catch(error => {
+                    console.error("Erro:", error);
+                });
+        } catch (error) {
+            console.error("Erro:", error);
+        }
+    }
+
+    // Function to handle messages to back-end
+    function postFormData(formData) {
+        const url = '/chat/get-question/';
+
+        return fetch(url, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'X-CSRFToken': csrftoken
+            },
+            body: formData,
+        })
+            .then(response => response.json())
+            .then(({ msg, res, files, time, first_id }) => {
+                
+                const messageRowDiv = createMessageElement('Você', msg, files, true);
+                chat_container.appendChild(messageRowDiv);
+
+                const botMessageRowDiv = createMessageElement('Gwen', res, null, false);
+                chat_container.appendChild(botMessageRowDiv);
+
+                botMessageRowDiv.scrollIntoView();
+
+                // Limpa a textarea
+                textarea.value = '';
+                return { msg, res, files, time, first_id };
+            })
+            .catch(error => {
+                console.error("Erro:", error);
+                throw error; // Lança o erro novamente para que o código chamador possa tratá-lo
+            });
+    }
+
+    // Function to adjust container height
+    function adjustContainerHeight() {
+        const inputTextarea = textarea;
+        const filePreviewContainer = document.getElementById('file-preview-container');
+        const isVisible = filePreviewContainer.style.display !== 'none';
+
+        const newHeight = Math.min(inputTextarea.scrollHeight, 150);
+
+        inputTextarea.style.height = inputTextarea.value.trim() === '' ? '40px' : newHeight + 'px';
+        document.documentElement.style.setProperty('--submit-form-height', inputTextarea.style.height);
+
+        const containerFluid3Height = `calc(75vh - ${inputTextarea.style.height} + 38px${isVisible ? ` - ${filePreviewContainer.offsetHeight}px` : ''})`;
+        document.querySelector('.container-fluid-2').style.height = containerFluid3Height;
+    }
+
+    // Function to update file preview
+    function updateFilePreview(inputId, previewId) {
+        const fileInput = document.getElementById(inputId);
+        const preview = document.getElementById(previewId);
+
+        if (fileInput && preview) {
+            const files = fileInput.files;
+
+            if (files && files.length > 0) {
+                const file = files[0];
+
+                if (file.type.startsWith('image')) {
+                    preview.innerHTML = `<img src="${URL.createObjectURL(file)}" class="img-thumbnail img-fluid" style="width: 150px;" alt="${file.name}">`;
+                } else {
+                    preview.textContent = `Arquivo: ${file.name}`;
+                }
+            } else {
+                preview.textContent = '';
             }
         }
     }
-    return cookieValue;
-}
-const csrftoken = getCookie('csrftoken');
 
+    // Function to create message element
+    function createMessageElement(user, message, files, isUser) {
+        const messageRowDiv = document.createElement('div');
+        const messageColDiv = document.createElement('div');
+        const userIdDiv = document.createElement('div');
+        const userBdyDiv = document.createElement('div');
+        const userMsgDiv = document.createElement('div');
 
-// Bloco para envio das mensagens
-async function postJSON(data) {
-    const url = '/chat/get-question/'
+        messageRowDiv.classList.add('chat-row');
+        messageColDiv.classList.add(isUser ? 'align-items-end' : 'align-items-start', 'chat-column');
+        userIdDiv.classList.add(isUser ? 'me-3' : 'ms-3', 'fw-bold');
+        userBdyDiv.classList.add('chat-body', isUser ? 'user-chat' : 'bot-chat');
+        userMsgDiv.classList.add('chat-message');
 
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken
-            },
-            body: JSON.stringify(data),
-        });
+        userIdDiv.innerHTML = isUser ? 'Você' : 'Gwen';
+        userMsgDiv.innerHTML = message;
 
-        const result = await response.json();
-        chat_container.innerHTML +=
-            `<div class="d-flex flex-row justify-content-end mb-1">
-                <div class="mw-75">
-                    <p class="small me-3 mb-3 rounded-3 user-chat">${result.msg}</p>
-                </div>
-                <img src="${userFotoPerfilUrl}" class="rounded-circle" style="width: 45px; height: 100%;">
-            </div>
-            <div class="d-flex flex-row justify-content-start mb-1">
-                <img src="${botImageUrl}" class="rounded-circle" style="width: 45px; height: 100%;">
-                <div class="mw-75">
-                    <p class="small ms-3 mb-3 rounded-3 bot-chat">${result.res}</p>
-                </div>
-            </div>`;
-
-        textarea.value = ''
-        
-        return result.first_id;
-    } catch (error) {
-        console.error("Erro:", error);
-    }
-}
-
-
-// Bloco para atualização da caixa de histórico na sidebar
-function updateHistoryBlock(message, chat_id) {
-    let todayBlock = document.getElementById('t-block');
-    
-
-    if (todayBlock) {
-        let todayList = todayBlock.querySelector('ul');
-        let todayMessages = todayList.querySelectorAll('li');
-
-        let messageExists = Array.from(todayMessages).some(function (li) {
-            return li.querySelector('.history-container a').textContent === message;
-        });
-
-        if (messageExists) {
-            console.log('Mensagem já existe:', message);
-        } else {
-            let messageId = todayBlock.dataset.id && todayBlock.dataset.id !== "" ? todayBlock.dataset.id : chat_id;
-            let viewMessageUrl = `/chat/view-messages/${messageId}`;
-
-            todayList.innerHTML += 
-                `<li>
-                    <div class="history-container" data-id="${messageId}" onmouseover="showButtons(this)" onmouseout="hideButtons(this)">
-                        <a href="${viewMessageUrl}" id="view_messages_${messageId}" class="view_messages_link">
-                            <div class="history">${message}</div>
-                        </a>
-                        <div class="history-buttons">
-                            <button class="btn-edit"><i class="fa-solid fa-pencil"></i></button>
-                            <button class="btn-delete"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-                    </div>
-                </li>`;
+        if (!isUser) {
+            messageRowDiv.innerHTML = `<img src="${botImageUrl}" class="rounded-circle" style="width: 30px; height: 100%;">`;
         }
-    }
-}
 
+        userBdyDiv.appendChild(userMsgDiv);
 
-// Bloco para renderizar as mensagens do hisórico no chat
-async function renderMessages(chat_message_id) {
-    const url = `/chat/view-messages/${chat_message_id}`;
-    console.log(url)
+        if (files) {
+            files.forEach(file => {
+                const fileDiv = document.createElement('div');
+                fileDiv.classList.add('file-content');
+                fileDiv.style.display = 'flex';
 
-    try {
-        const response = await fetch(url);
-        const messages = await response.json();
-        console.log(messages)
+                if (file.type === 'text') {
+                    fileDiv.innerHTML = `<a href="${file.file_url}" target="_blank" class="btn-h"><i class="fa-solid fa-eye"></i> ${file.file_name}</a>`;
+                } else if (file.type === 'image') {
+                    fileDiv.innerHTML = `<img src="${file.file_url}" class="img-thumbnail img-fluid" style="width: 150px;" alt="${file.file_name}">`;
+                }
 
-        const chat_container = document.querySelector('.chat-container');
-        chat_container.innerHTML = '';
-
-        if (Array.isArray(messages)) {
-            messages.forEach(message => {
-                chat_container.innerHTML +=
-                    `<div class="d-flex flex-row justify-content-end mb-1">
-                        <div class="mw-75">
-                            <p class="small me-3 mb-3 rounded-3 user-chat">${message.user_question}</p>
-                        </div>
-                        <img src="${userFotoPerfilUrl}" class="rounded-circle" style="width: 45px; height: 100%;">
-                    </div>
-                    <div class="d-flex flex-row justify-content-start mb-1">
-                        <img src="${botImageUrl}" class="rounded-circle" style="width: 45px; height: 100%;">
-                        <div class="mw-75">
-                            <p class="small ms-3 mb-3 rounded-3 bot-chat">${message.bot_response}</p>
-                        </div>
-                    </div>`;
+                userBdyDiv.appendChild(fileDiv);
             });
-        } else {
-            console.error('A resposta não é um array de mensagens:', messages);
+        }
+
+        messageColDiv.appendChild(userIdDiv);
+        messageColDiv.appendChild(userBdyDiv);
+        messageRowDiv.appendChild(messageColDiv);
+
+        if (isUser) {
+            messageRowDiv.innerHTML += `<img src="${userFotoPerfilUrl}" class="rounded-circle" style="width: 30px; height: 100%;">`;
+        }
+
+        return messageRowDiv;
+    }
+
+    // Function to update history block
+    function updateHistoryBlock(message, time, chat_id) {
+        const todayBlock = document.getElementById('t-block');
+        
+        try {
+            if (!todayBlock || !time) {
+                return;
+            }
+
+            const todayList = todayBlock.querySelector('ul');
+            const todayMessages = todayList.querySelectorAll('li');
+            const messageId = todayBlock.dataset.id || chat_id;
+            const messageExists = Array.from(todayMessages).some(li => li.querySelector('.history-container a').textContent === message);
+
+            if (!messageExists) {
+                const viewMessageUrl = `/chat/view-messages/${messageId}`;
+                const timeWithoutSeconds = time.split(':').slice(0, 2).join(':');
+
+                todayList.insertAdjacentHTML('afterbegin', `
+                    <li>
+                        <div class="history-container" data-id="${messageId}" onmouseover="showButtons(this)" onmouseout="hideButtons(this)">
+                            <a href="${viewMessageUrl}" id="view_messages_${messageId}" class="view_messages_link">
+                                <div class="history">
+                                    <div class="truncate text-truncate">${message}</div>
+                                </div>
+                            </a>
+                            <div class="history-time">${timeWithoutSeconds}</div>
+                            <div class="history-buttons">
+                                <button class="btn-edit"><i class="fa-solid fa-pencil"></i></button>
+                                <button class="btn-delete"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                        </div>
+                    </li>`);
+            }
+        } catch (error) {
+            console.error('Error in updateHistoryBlock:', error);
         }
         
-
-        currentChatMessageId = chat_message_id;
-
-    } catch (error) {
-        console.error("Erro:", error);
     }
-}
 
 
-document.querySelectorAll('.view_messages_link').forEach(link => {
-    link.addEventListener('click', function(event) {
-        event.preventDefault();
-        const chat_message_id = this.getAttribute('id').split('_')[2];
-        renderMessages(chat_message_id);
-    });
-});
-
-
-form.addEventListener('submit', submitForm)
-
-
-// Bloco para ativação dos eventos
-async function submitForm(e) {
-    e.preventDefault();
-
-    let message = textarea.value;
-
-    const data = { 
-        msg: message, 
-        is_first_message: currentChatMessageId ? false : isFirstMessage,
-        chat_message_id: currentChatMessageId || undefined
-    };
-
-    try {
-        const chatId = await postJSON(data);
-
-        if (isFirstMessage) {
-            updateHistoryBlock(message, chatId);
-        }
-
-        isFirstMessage = false;
-        currentChatMessageId = null;
-
-        await renderMessages(chatId);
-
-    } catch (error) {
-        console.error("Error:", error);
-    }
-}
-
-
-
-
-</script>
-
-<script>
-
-
-
+})();
 
 </script>
 {% endblock 'script' %}

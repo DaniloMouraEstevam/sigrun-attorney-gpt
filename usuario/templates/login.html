@@ -3,30 +3,26 @@
 
 {% block 'head' %}
     <style>
-        body {
-            background-image: url("{% static 'base/img/assinatura-bg.jpg' %}");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
-        }
+        .img-back {background-image: url("{% static 'base/img/assinatura-bg.jpg' %}");}
 
+        .container-fluid.img-back.mask {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ajuste a altura para preencher a tela */
+}
         .login-container {
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 40px; 
-            border-radius: 10px;
-            width: 400px; 
-            max-height: 600px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 40px; 
+    border-radius: 10px;
+    width: 400px; 
+    max-height: 600px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
         .login-container button {
             width: 100%;
@@ -72,23 +68,26 @@
             </div>
         </div>
     {% endif %}
-
-    <div class="container login-container">
-        <h2 class="text-center mb-4 custom-centered-title">Login</h2>
-        <form method="POST" action="{% url 'usuario:valida_login' %}" > {% csrf_token %}
-            <div class="form-group">
-                <input name="email" type="text" class="form-control" placeholder="Digite seu email">
-            </div>
-            <div class="form-group">
-                <input name="senha" type="password" class="form-control" placeholder="Digite sua senha">
-            </div>
-            <button type="submit" class="btn btn-primary btn-block text-capitalize">Entrar</button>
-            <div class="options">
-                <p>Não tem uma conta? <span><a href="{% url 'usuario:cadastro' %}">Cadastre-se</a></span></p>
-                <a href="#">Esqueci minha senha</a>
-            </div>
-        </form>
+    
+    <div class="container-fluid img-back mask">
+        <div class="container login-container">
+            <h2 class="text-center mb-4 custom-centered-title">Login</h2>
+            <form method="POST" action="{% url 'usuario:valida_login' %}" > {% csrf_token %}
+                <div class="form-group">
+                    <input name="email" type="text" class="form-control" placeholder="Digite seu email">
+                </div>
+                <div class="form-group">
+                    <input name="senha" type="password" class="form-control" placeholder="Digite sua senha">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block text-capitalize">Entrar</button>
+                <div class="options">
+                    <p>Não tem uma conta? <span><a href="{% url 'usuario:cadastro' %}">Cadastre-se</a></span></p>
+                    <a href="#">Esqueci minha senha</a>
+                </div>
+            </form>
+        </div>
     </div>
+    
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

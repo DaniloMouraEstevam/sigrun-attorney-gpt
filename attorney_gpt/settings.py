@@ -132,16 +132,30 @@ DEFAULT_FILE_STORAGE = 'attorney_gpt.custom_azure.AzureMediaStorage'
 STATICFILES_STORAGE = 'attorney_gpt.custom_azure.AzureStaticStorage'
 
 AZURE_STORAGE_KEY = config('AZURE_STORAGE_KEY')
-AZURE_ACCOUNT_NAME = config('AZURE_ACCOUNT_NAME')
+AZURE_STORAGE_NAME = config('AZURE_STORAGE_NAME')
 AZURE_STATIC_CONTAINER = 'static'
 AZURE_MEDIA_CONTAINER = 'media'
 
-AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
-STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{AZURE_STATIC_CONTAINER}/'
-MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{AZURE_MEDIA_CONTAINER}/'
+AZURE_STORAGE_DOMAIN = f'{AZURE_STORAGE_NAME}.blob.core.windows.net'
+STATIC_URL = f'https://{AZURE_STORAGE_DOMAIN}/{AZURE_STATIC_CONTAINER}/'
+MEDIA_URL = f'https://{AZURE_STORAGE_DOMAIN}/{AZURE_MEDIA_CONTAINER}/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'templates/static'),)
+
+# Search Files (Documents, Images)
+
+DEFAULT_DOC_STORAGE = 'attorney_gpt.custom_azure.AzureDocumentStorage'
+DEFAULT_IMG_STORAGE = 'attorney_gpt.custom_azure.AzureImageStorage'
+
+AZURE_DATA_KEY = config('AZURE_DATA_KEY')
+AZURE_DATA_NAME = config('AZURE_DATA_NAME')
+AZURE_DOC_CONTAINER = 'document'
+AZURE_IMG_CONTAINER = 'image'
+
+AZURE_DATA_DOMAIN = f'{AZURE_DATA_NAME}.blob.core.windows.net'
+DOC_URL = f'https://{AZURE_DATA_DOMAIN}/{AZURE_DOC_CONTAINER}/'
+IMG_URL = f'https://{AZURE_DATA_DOMAIN}/{AZURE_IMG_CONTAINER}/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

@@ -6,8 +6,11 @@
                 <li>
                     <div class="history-container" data-id="{{ tq.id }}" onmouseover="showButtons(this)" onmouseout="hideButtons(this)">
                         <a href="{% url 'chat:view_messages' tq.id %}" id="view_messages_{{ tq.id }}" class="view_messages_link">
-                            <div class="history">{{ tq.message }}</div>
+                            <div class="history">
+                                <div class="truncate text-truncate">{{ tq.message }}</div>
+                            </div>
                         </a>
+                        <div class="history-time">{{ tq.time_only }}</div>
                         <div class="history-buttons">
                             <button class="btn-edit btn-h"><i class="fa-solid fa-pencil"></i></button>
                             <button class="btn-delete btn-h"><i class="fa-solid fa-trash"></i></button>
